@@ -48,9 +48,9 @@ Menyediakan sebuah aplikasi berbentuk web di mana pengguna dapat memasukkan geja
 
 | Kelebihan | Kekurangan |
 | --- | --- |
-| - Akses yang mudah dan praktis | - Harga layanan mahal |
-| - Layanan yang disediakan lengkap | - Bergantung pada koneksi internet untuk memberikan layanan yang baik. |
-| - Banyaknya dokter yang tersedia, termasuk berbagai spesialisasi | - Pengguna masih perlu mendatangi dokter secara langsung untuk konsultasi fisik. |
+| + Akses yang mudah dan praktis | - Harga layanan mahal |
+| + Layanan yang disediakan lengkap | - Bergantung pada koneksi internet untuk memberikan layanan yang baik. |
+| + Banyaknya dokter yang tersedia, termasuk berbagai spesialisasi | - Pengguna masih perlu mendatangi dokter secara langsung untuk konsultasi fisik. |
 
 
 #### Klikdokter
@@ -65,9 +65,9 @@ Menyediakan sebuah aplikasi berbentuk web di mana pengguna dapat memasukkan geja
 
 | Kelebihan | Kekurangan |
 | --- | --- |
-| - Konten kesehatan yang bermanfaat | - Layanan terbatas |
-| - Layanan konsultasi dokter online | - Akurasi tidak dapat selalu terjamin |
-| - Biaya gratis | - Tidak bisa menangani kasus darurat |
+| + Konten kesehatan yang bermanfaat | - Layanan terbatas |
+| + Layanan konsultasi dokter online | - Akurasi tidak dapat selalu terjamin |
+| + Biaya gratis | - Tidak bisa menangani kasus darurat |
 
 
 #### Pawlyclinic
@@ -82,7 +82,7 @@ Menyediakan sebuah aplikasi berbentuk web di mana pengguna dapat memasukkan geja
 
 | Kelebihan | Kekurangan |
 | --- | --- |
-| - Akses dokter hewan tersedia 24 jam | - Kualitas layanan bergantung pada koneksi internet |
-| - Memiliki toko untuk membeli obat-obatan dan suplemen lainnya | - Ketergantungan pada klinik mitra untuk konsultasi fisik |
-| - Banyaknya dokter spesialis yang terdaftar | - Ketergantungan pada dokter hewan |
-| - Pemeriksaan melalui video | |
+| + Akses dokter hewan tersedia 24 jam | - Kualitas layanan bergantung pada koneksi internet |
+| + Memiliki toko untuk membeli obat-obatan dan suplemen lainnya | - Ketergantungan pada klinik mitra untuk konsultasi fisik |
+| + Banyaknya dokter spesialis yang terdaftar | - Ketergantungan pada dokter hewan |
+| + Pemeriksaan melalui video | |
