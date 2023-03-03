@@ -13,29 +13,35 @@ Departemen Teknik Elektro dan Teknologi Informasi<br>
 Fakultas Teknik<br>
 Universitas Gadjah Mada
 
-### Nama Produk
+Nama Produk
+------
 Halodog
 
-### Jenis Produk
+Jenis Produk
+------
 Aplikasi web
 
-### Latar Belakang & Permasalahan
+Latar Belakang & Permasalahan
+------
 Banyak faktor yang dapat mempengaruhi konsultasi penyakit hewan, sehingga dapat mempersulit proses konsultasi. Beberapa faktor yang mungkin menjadi tantangan dalam konsultasi penyakit hewan meliputi: 
 - Keterbatasan pengetahuan: Penyakit hewan tergolong kompleks dan sulit untuk didiagnosis. Dokter hewan bisa saja tidak memiliki pengetahuan yang cukup tentang penyakit tertentu atau teknologi terbaru yang digunakan dalam pengobatan.
 - Jangkauan yang terbatas: Beberapa wilayah mungkin memiliki akses yang terbatas terhadap fasilitas medis atau dokter hewan. Hal ini mempersulit pemilik hewan peliharaan untuk mendapatkan konsultasi penyakit bagi hewan peliharaan mereka. 
 - Biaya yang tinggi: Biaya konsultasi dokter hewan dan perawatan hewan terbilang mahal. Beberapa pemilik hewan peliharaan mungkin tidak mampu membayar biaya perawatan untuk hewan peliharaan mereka. 
 - Kurangnya ketersediaan dokter hewan: Jumlah dokter hewan yang terbatas dan tidak tersebar merata dapat mengakibatkan ketersediaan yang terbatas dalam memberikan konsultasi dan perawatan. Dengan menggunakan teknologi seperti AI, cloud computing, dan jaringan komputer, konsultasi penyakit hewan dapat menjadi lebih mudah dan dapat diakses oleh orang-orang di mana saja. Ini dapat membantu mengatasi beberapa tantangan dalam memberikan perawatan yang tepat dan efektif untuk hewan peliharaan, serta memberikan solusi untuk masalah di bidang kesehatan hewan.
 
-### Rumusan Permasalahan:
+Rumusan Permasalahan
+------
 - Bagaimana memastikan seluruh dokter hewan memiliki pengetahuan yang cukup. 
 - Bagaimana cara agar semua orang dapat mengkonsultasikan penyakit yang diderita hewan. 
 - Bagaimana cara agar semua orang mendapatkan pelayanan konsultasi terkait penyakit hewan yang murah. 
 - Bagaimana menjawab ketersediaan dokter hewan yang terbatas.
 
-### Ide Solusi
+Ide Solusi
+------
 Menyediakan sebuah aplikasi berbentuk web di mana pengguna dapat memasukkan gejala – gejala dari hewan untuk mengetahui penyakit apa yang hewan tersebut derita. Sistem ini akan menerapkan **AI** yang digunakan untuk menyimpulkan penyakit dan penangananya, berdasarkan gejala – gejala yang diinputkan. Selain itu, kami akan menggunakan prinsip **Jaringan Komputer** berupa pengunaan Load Balancer, dan protocol HTTPS untuk koneksi yang lebih aman. Serta penggunaan cloud database sebagai penerapan **Cloud Computing**.
 
-### Analisis Kompetitor
+Analisis Kompetitor
+------
 #### Halodoc
 
 | Kompetitor 1 | Halodoc |
