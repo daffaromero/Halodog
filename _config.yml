@@ -1,3 +1,7 @@
 theme: cayman
 title: Halodog
 description: Halodog adalah sebuah aplikasi web untuk mendiagnosis penyakit hewan.
+
+# SITE CONFIGURATION
+baseurl: ""
+url: "https://daffaromero.github.io/Halodog"
