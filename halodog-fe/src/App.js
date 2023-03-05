@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       <h1>
-        Welcome to Halodog
+        Halodog
       </h1>
     </div>
   );
