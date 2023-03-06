@@ -1,4 +1,7 @@
-## Kelompok Tulations
+## Halodog
+## **Project Senior Project TI**
+
+### Kelompok Tulations
 
 | Jabatan | Nama | NIM |
 | --- | --- | --- |
@@ -7,19 +10,13 @@
 | Anggota 2 | [Muhammad Zikriansyah](https://github.com/MuhammadZikriansyah) | 20/456373/TK/50503 |
 | Anggota 3 | [Ruth Perdana Saragih](https://github.com/ruthps) | 20/460565/TK/51154 |
 
-**Project Senior Project TI**
+**Departemen Teknik Elektro dan Teknologi Informasi, Fakultas Teknik, Universitas Gadjah Mada**
 
-Departemen Teknik Elektro dan Teknologi Informasi<br>
-Fakultas Teknik<br>
-Universitas Gadjah Mada
+## Produk
+Nama: Halodog
+Jenis: Aplikasi web
 
-### Nama Produk
-Halodog
-
-### Jenis Produk
-Aplikasi web
-
-### Latar Belakang & Permasalahan
+## Latar Belakang & Permasalahan
 Banyak faktor yang dapat mempengaruhi konsultasi penyakit hewan, sehingga dapat mempersulit proses konsultasi. Beberapa faktor yang mungkin menjadi tantangan dalam konsultasi penyakit hewan meliputi: 
 - Keterbatasan pengetahuan: Penyakit hewan tergolong kompleks dan sulit untuk didiagnosis. Dokter hewan bisa saja tidak memiliki pengetahuan yang cukup tentang penyakit tertentu atau teknologi terbaru yang digunakan dalam pengobatan.
 - Jangkauan yang terbatas: Beberapa wilayah mungkin memiliki akses yang terbatas terhadap fasilitas medis atau dokter hewan. Hal ini mempersulit pemilik hewan peliharaan untuk mendapatkan konsultasi penyakit bagi hewan peliharaan mereka. 
@@ -28,17 +25,17 @@ Banyak faktor yang dapat mempengaruhi konsultasi penyakit hewan, sehingga dapat 
 
 Dengan menggunakan teknologi seperti AI, cloud computing, dan jaringan komputer, konsultasi penyakit hewan dapat menjadi lebih mudah dan dapat diakses oleh orang-orang di mana saja. Ini dapat membantu mengatasi beberapa tantangan dalam memberikan perawatan yang tepat dan efektif untuk hewan peliharaan, serta memberikan solusi untuk masalah di bidang kesehatan hewan.
 
-### Rumusan Permasalahan
+## Rumusan Permasalahan
 - Bagaimana memastikan seluruh dokter hewan memiliki pengetahuan yang cukup. 
 - Bagaimana cara agar semua orang dapat mengkonsultasikan penyakit yang diderita hewan. 
 - Bagaimana cara agar semua orang mendapatkan pelayanan konsultasi terkait penyakit hewan yang murah. 
 - Bagaimana menjawab ketersediaan dokter hewan yang terbatas.
 
-### Ide Solusi
+## Ide Solusi
 Menyediakan sebuah aplikasi berbentuk web di mana pengguna dapat memasukkan gejala – gejala dari hewan untuk mengetahui penyakit apa yang hewan tersebut derita. Sistem ini akan menerapkan **AI** yang digunakan untuk menyimpulkan penyakit dan penangananya, berdasarkan gejala – gejala yang diinputkan. Selain itu, kami akan menggunakan prinsip **Jaringan Komputer** berupa pengunaan Load Balancer, dan protocol HTTPS untuk koneksi yang lebih aman. Serta penggunaan cloud database sebagai penerapan **Cloud Computing**.
 
-### Analisis Kompetitor
-#### Halodoc
+## Analisis Kompetitor
+### Halodoc
 
 | Kompetitor 1 | Halodoc |
 | --- | --- |
@@ -55,7 +52,7 @@ Menyediakan sebuah aplikasi berbentuk web di mana pengguna dapat memasukkan geja
 | + Banyaknya dokter yang tersedia, termasuk berbagai spesialisasi | - Pengguna masih perlu mendatangi dokter secara langsung untuk konsultasi fisik. |
 
 
-#### Klikdokter
+### Klikdokter
 
 | Kompetitor 2 | Klikdokter |
 | --- | --- |
@@ -72,7 +69,7 @@ Menyediakan sebuah aplikasi berbentuk web di mana pengguna dapat memasukkan geja
 | + Biaya gratis | - Tidak bisa menangani kasus darurat |
 
 
-#### Pawlyclinic
+### Pawlyclinic
 
 | Kompetitor 3 | Pawlyclinic |
 | --- | --- |
@@ -88,3 +85,60 @@ Menyediakan sebuah aplikasi berbentuk web di mana pengguna dapat memasukkan geja
 | + Memiliki toko untuk membeli obat-obatan dan suplemen lainnya | - Ketergantungan pada klinik mitra untuk konsultasi fisik |
 | + Banyaknya dokter spesialis yang terdaftar | - Ketergantungan pada dokter hewan |
 | + Pemeriksaan melalui video | |
+
+## SDLC
+
+### Metodologi SDLC
+#### Metodologi yang digunakan
+Scrumban
+#### Alasan pemilihan metodologi
+Scrumban memiliki beberapa kelebihan, yaitu: 
+- <b>Fleksibilitas</b><br>
+  Scrumban memberikan fleksibilitas dalam mengatur dan menyesuaikan proses pengembangan perangkat lunak.
+- <b>Mengurangi pemborosan</b><br>
+  Dengan menggunakan prinsip-prinsip lean dari Kanban, Scrumban membantu mengurangi pemborosan dalam pengembangan perangkat lunak.
+- <b>Menggabungkan kelebihan dari Scrum dan Kanban</b><br>
+  Scrum memungkinkan tim untuk fokus pada tujuan yang jelas dan berorientasi pada pengiriman produk. Sementara itu, Kanban memberikan fleksibilitas dan kontrol yang lebih besar terhadap aliran kerja.
+- <b>Meningkatkan kualitas produk</b><br>
+  Scrumban memungkinkan tim untuk memprioritaskan pekerjaan dan meningkatkan kualitas produk.
+- <b>Mudah diadopsi</b><br>
+  Scrumban lebih mudah diadopsi daripada Scrum atau Kanban secara terpisah. Scumban memungkinkan tim untuk memulai dengan menggunakan Scrum, sambil memanfaatkan prinsip-prinsip dari Kanban.
+
+### Perancangan Tahap 1-3 SDLC
+#### Tujuan dari produk
+Mempermudah konsultasi penyakit hewan, sehingga dapat diakses oleh orang-orang di mana saja. Ini dapat membantu mengatasi beberapa tantangan dalam memberikan perawatan yang tepat dan efektif untuk hewan peliharaan, serta memberikan solusi untuk masalah di bidang kesehatan hewan.
+
+#### Pengguna potensial
+- Pemilik hewan peliharaan
+- Dokter hewan
+- Mahasiswa jurusan Kedokteran Hewan
+- Petugas kebun binatang
+
+#### Use Case Diagram
+(TO BE ADDED)
+
+#### Functional requirements
+| FR | Deskripsi |
+| --- | --- |
+| FR 1: Sign Up | User harus dapat melakukan pendaftaran akun baru. |
+| FR 2: Login | User harus dapat masuk ke aplikasi dengan akun yang telah didaftarkan. |
+| FR 3: Input gejala | Sistem harus dapat membaca hasil masukan dari user. |
+| FR 4: Search Penyakit | User dapat melakukan pencarian terhadap penyakit yang berada di database. |
+| FR 5: Lihat daftar penyakit | User dapat melihat daftar penyakit hewan yang berada di database  beserta gejala-gejalanya. |
+| FR 6: Search Location | User dapat melakukan pencarian terhadap lokasi dokter/ klinik hewan terdekat. |
+| FR 7: Create penyakit, hewan, dan lokasi dokter | Sistem harus dapat membuat entry baru di tabel-tabel database sesuai dengan request yang dibuat oleh admin. |
+| FR 8: Read penyakit, hewan, lokasi dokter | Sistem harus dapat membaca dan menampilkan data yang diinginkan sesuai request. |
+| FR 9: Update penyakit, hewan, lokasi dokter | Sistem harus dapat melakukan pembaruan di database sesuai dengan request yang dibuat oleh admin. |
+| FR 10: Delete penyakit, hewan, dan lokasi dokter | Sistem harus dapat melakukan penghapusan pada database terkait penyakit, hewan, dan lokasi dokter. |
+
+#### Entity Relationship Diagram
+(TO BE ADDED)
+
+#### Low-fidelity Wireframe
+![Login](https://user-images.githubusercontent.com/70407002/223001197-eac50cf1-a1a2-4d8a-933c-29ef064ff7ec.png)
+![Input Gejala](https://user-images.githubusercontent.com/70407002/223001194-23636396-3061-4343-af6a-d37d8e17446a.png)
+![Search Penyakit](https://user-images.githubusercontent.com/70407002/223001187-95d2c1f9-37fd-4b49-b12c-1a81ffd045e0.png)
+![Dokter Terdekat](https://user-images.githubusercontent.com/70407002/223001192-ed5676b7-4ef3-4683-baf9-eb1a3738c856.png)
+
+#### Gantt chart
+![Gantt chart](https://user-images.githubusercontent.com/70407002/223001421-040b7916-0d40-4126-9d4a-ce9e7a5e56ea.png)
