@@ -13,7 +13,7 @@
 **Departemen Teknik Elektro dan Teknologi Informasi, Fakultas Teknik, Universitas Gadjah Mada**
 
 ## Produk
-Nama: Halodog
+Nama: Halodog<br>
 Jenis: Aplikasi web
 
 ## Latar Belakang & Permasalahan
@@ -118,6 +118,7 @@ Mempermudah konsultasi penyakit hewan, sehingga dapat diakses oleh orang-orang d
 (TO BE ADDED)
 
 #### Functional requirements
+
 | FR | Deskripsi |
 | --- | --- |
 | FR 1: Sign Up | User harus dapat melakukan pendaftaran akun baru. |
