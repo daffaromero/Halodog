@@ -135,7 +135,7 @@ Mempermudah konsultasi penyakit hewan, sehingga dapat diakses oleh orang-orang d
 | FR 10: Delete penyakit, hewan, dan lokasi dokter | Sistem harus dapat melakukan penghapusan pada database terkait penyakit, hewan, dan lokasi dokter. |
 
 #### Entity Relationship Diagram
-(TO BE ADDED)
+![ERD](https://user-images.githubusercontent.com/70407002/223355381-4311218a-4760-4c18-a1e6-aee642582ede.png)
 
 #### Low-fidelity Wireframe
 ![Login](https://user-images.githubusercontent.com/70407002/223001197-eac50cf1-a1a2-4d8a-933c-29ef064ff7ec.png)
