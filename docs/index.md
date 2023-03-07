@@ -115,7 +115,9 @@ Mempermudah konsultasi penyakit hewan, sehingga dapat diakses oleh orang-orang d
 - Petugas kebun binatang
 
 #### Use Case Diagram
-(TO BE ADDED)
+![Use Case Diagram](https://user-images.githubusercontent.com/70407002/223353494-dbeced9d-caa6-4b51-b76b-0db2af67037d.png)
+![Use Case Diagram](https://user-images.githubusercontent.com/70407002/223353499-c59ee947-3200-46d1-b90a-4f53387c437c.png)
+
 
 #### Functional requirements
 
