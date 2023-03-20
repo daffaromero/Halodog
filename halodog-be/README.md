@@ -1,5 +1,5 @@
 # Front-end Halodog
 ## Kelompok Tulations
 
-## Senior Project
-## DTETI FT UGM
+### Senior Project
+### DTETI FT UGM
