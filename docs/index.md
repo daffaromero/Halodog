@@ -145,3 +145,15 @@ Mempermudah konsultasi penyakit hewan, sehingga dapat diakses oleh orang-orang d
 
 #### Gantt chart
 ![Gantt chart](https://user-images.githubusercontent.com/70407002/223001421-040b7916-0d40-4126-9d4a-ce9e7a5e56ea.png)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+Di baris bawah ini saya sembunyikan (dengan tidak hati-hati) bahwa beberapa anggota tim ini menunjukkan tanda-tanda ketidakniatan/ketidakinginan mengerjakan proyek senior. Detail akan muncul/hilang seiring waktu.
