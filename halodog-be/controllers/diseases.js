@@ -1,4 +1,5 @@
 const Disease = require("../models/Disease");
+const ErrorResponse = require("../utils/errorResponse");
 
 // @desc    Melihat penyakit (semua)
 // @route   GET /api/v1/diseases
@@ -27,16 +28,26 @@ exports.getDisease = async (req, res, next) => {
     const disease = await Disease.findById(req.params.id);
 
     if (!disease) {
-      return res.status(400).json({ success: false });
+      // Kalau ID tidak ditemukan di database
+      return next(
+        new ErrorResponse(
+          `Penyakit tidak ditemukan dengan id ${req.params.id}`,
+          404
+        )
+      );
     }
     res.status(200).json({
       success: true,
       data: disease,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    // Kalau ID salah format
+    next(
+      new ErrorResponse(
+        `Penyakit tidak ditemukan dengan id ${req.params.id}`,
+        404
+      )
+    );
   }
 };
 

@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const colors = require("colors");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
+const errorHandler = require("./middleware/error");
 
 // Route files
 const diseases = require("./routes/diseases");
@@ -27,6 +28,8 @@ if (process.env.NODE_ENV === "development") {
 
 // Mount routers
 app.use("/api/v1/diseases", diseases);
+
+app.use(errorHandler);
 
 // Enable CORS requests
 app.use(cors());
