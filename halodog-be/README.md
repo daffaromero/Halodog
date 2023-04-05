@@ -7,10 +7,11 @@ Before running:
 ```
 npm install
 ```
-- Fill out config.env file in /config:
+- Fill out config.env file in halodog-be/config:
   - NODE_ENV = development or production
   - PORT = to your heart's desires
-  - MONGO_URI = your MongoDB database connection string
+  - MONGO_URI = your MongoDB database connection string. Don't know what that is? Check this [MongoDB documentation.](https://www.mongodb.com/docs/atlas/driver-connection/)<br>
+  Example: 'mongodb+srv://example:<password>@example.example.mongodb.net/<your_database_name>?retryWrites=true&w=majority'
 
 - To run development build:
 ```
