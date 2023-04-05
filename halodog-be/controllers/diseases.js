@@ -1,14 +1,13 @@
+const Disease = require("../models/Disease");
+
 // @desc    Melihat penyakit (semua)
 // @route   GET /api/v1/diseases
 // @access  Public
 exports.getAllDiseases = (req, res, next) => {
-  res
-    .status(200)
-    .json({
-      success: true,
-      msg: "Daftar semua penyakit hewan.",
-      hello: req.hello,
-    });
+  res.status(200).json({
+    success: true,
+    msg: "Daftar semua penyakit hewan.",
+  });
 };
 
 // @desc    Melihat penyakit (ID)
@@ -23,8 +22,19 @@ exports.getDisease = (req, res, next) => {
 // @desc    Tambah Penyakit
 // @route   POST /api/v1/diseases/
 // @access  Private
-exports.createDisease = (req, res, next) => {
-  res.status(200).json({ success: true, msg: "Menambahkan penyakit baru." });
+exports.createDisease = async (req, res, next) => {
+  try {
+    const disease = await Disease.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      data: disease,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+    });
+  }
 };
 
 // @desc    Mengubah penyakit (ID)

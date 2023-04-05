@@ -4,7 +4,6 @@ const cors = require("cors");
 const morgan = require("morgan");
 const colors = require("colors");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
 
 // Route files
@@ -17,6 +16,9 @@ dotenv.config({ path: "./config/config.env" });
 connectDB();
 
 const app = express();
+
+// Body parser
+app.use(express.json());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
