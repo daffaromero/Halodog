@@ -14,9 +14,7 @@ exports.getAllDiseases = async (req, res, next) => {
       data: diseases,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
 
@@ -42,12 +40,7 @@ exports.getDisease = async (req, res, next) => {
     });
   } catch (err) {
     // Kalau ID salah format
-    next(
-      new ErrorResponse(
-        `Penyakit tidak ditemukan dengan id ${req.params.id}`,
-        404
-      )
-    );
+    next(err);
   }
 };
 
@@ -63,9 +56,7 @@ exports.createDisease = async (req, res, next) => {
       data: disease,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
 
@@ -80,7 +71,12 @@ exports.updateDisease = async (req, res, next) => {
     });
 
     if (!disease) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(
+          `Penyakit tidak ditemukan dengan id ${req.params.id}`,
+          404
+        )
+      );
     }
 
     res.status(200).json({
@@ -88,9 +84,7 @@ exports.updateDisease = async (req, res, next) => {
       data: disease,
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };
 
@@ -102,7 +96,12 @@ exports.deleteDisease = async (req, res, next) => {
     const disease = await Disease.findByIdAndDelete(req.params.id);
 
     if (!disease) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(
+          `Penyakit tidak ditemukan dengan id ${req.params.id}`,
+          404
+        )
+      );
     }
 
     res.status(200).json({
@@ -111,8 +110,6 @@ exports.deleteDisease = async (req, res, next) => {
       data: {},
     });
   } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+    next(err);
   }
 };

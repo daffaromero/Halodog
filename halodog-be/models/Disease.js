@@ -4,8 +4,8 @@ const DiseaseSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      default: "Placeholder Name",
-      required: true,
+      // default: "Placeholder Name",
+      required: [true, "Tambahkan nama penyakit"],
       unique: true,
     },
     slug: String,
