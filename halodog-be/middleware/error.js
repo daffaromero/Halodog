@@ -1,3 +1,4 @@
+// Custom error handler
 const ErrorResponse = require("../utils/errorResponse");
 
 function errorHandler(err, req, res, next) {

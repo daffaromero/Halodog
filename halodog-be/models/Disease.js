@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const DiseaseSchema = new mongoose.Schema(
   {
@@ -7,11 +8,13 @@ const DiseaseSchema = new mongoose.Schema(
       // default: "Placeholder Name",
       required: [true, "Tambahkan nama penyakit"],
       unique: true,
+      maxlength: [50, "Nama penyakit tidak boleh melebihi 50 karakter"],
     },
     slug: String,
     description: {
       type: String,
       default: "Something something describing",
+      maxlength: [500, "Deskripsi penyakit tidak boleh melebihi 50 karakter"],
     },
     photo: {
       type: String,
@@ -36,5 +39,11 @@ const DiseaseSchema = new mongoose.Schema(
   }
   //   { collection: "diseases" }
 );
+
+// Membuat slug penyakit dari nama
+DiseaseSchema.pre("save", function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
+});
 
 module.exports = mongoose.model("Disease", DiseaseSchema);
