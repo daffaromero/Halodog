@@ -8,6 +8,7 @@ dotenv.config({ path: "./config/.env" });
 
 // Load models
 const Disease = require("./models/Disease");
+const Animal = require("./models/Animal");
 
 // Connect to DB
 mongoose.connect(process.env.MONGO_URI, {
@@ -20,11 +21,15 @@ const diseases = JSON.parse(
   fs.readFileSync(`${__dirname}/_placeholder/diseases.json`, "utf-8")
 );
 
+const animals = JSON.parse(
+  fs.readFileSync(`${__dirname}/_placeholder/animals.json`, "utf-8")
+);
+
 // Import into DB
 const importData = async () => {
   try {
     await Disease.create(diseases);
-
+    await Animal.create(animals);
     console.log("Data successfully imported!".green.inverse);
     process.exit();
   } catch (err) {
@@ -36,7 +41,7 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await Disease.deleteMany();
-
+    await Animal.deleteMany();
     console.log("Data destroyed!".red.inverse);
     process.exit();
   } catch (err) {
