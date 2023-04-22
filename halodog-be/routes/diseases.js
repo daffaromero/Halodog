@@ -7,7 +7,13 @@ const {
   deleteDisease,
 } = require("../controllers/diseases");
 
+// Include other resource routers
+const animalRouter = require('./animals')
+
 const router = express.Router();
+
+// Re-route into other resource routers
+router.use('/:diseaseId/animals', animalRouter)
 
 router.route("/").get(getAllDiseases).post(createDisease);
 

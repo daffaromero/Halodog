@@ -9,6 +9,7 @@ const errorHandler = require("./middleware/error");
 
 // Route files
 const diseases = require("./routes/diseases");
+const animals = require("./routes/animals");
 
 // Load env vars
 dotenv.config({ path: "./config/.env" });
@@ -28,6 +29,7 @@ if (process.env.NODE_ENV === "development") {
 
 // Mount routers
 app.use("/api/v1/diseases", diseases);
+app.use("/api/v1/animals", animals);
 
 app.use(errorHandler);
 
