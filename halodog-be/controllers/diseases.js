@@ -15,9 +15,17 @@ exports.getAllDiseases = asyncHandler(async (req, res, next) => {
   const removeFields = ["select", "sort", "page", "limit"];
   removeFields.forEach((param) => delete reqQuery[param]);
 
-  let queryStr = JSON.stringify(reqQuery); // Create query string
-  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `${match}`); // Create operators
-  query = Disease.find(JSON.parse(queryStr)); // Finding resource obv
+  // Create query string
+  let queryStr = JSON.stringify(reqQuery);
+
+  // Create operators
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `${match}`);
+
+  // Finding resource obv
+  query = Disease.find(JSON.parse(queryStr)).populate({
+    path: 'animal',
+    select: 'name species description -disease'
+  });
 
   // Select fields
   if (req.query.select) {
@@ -91,7 +99,7 @@ exports.getDisease = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Tambah Penyakit
-// @route   POST /api/v1/diseases/
+// @route   POST /api/v1/diseases
 // @access  Private
 exports.createDisease = asyncHandler(async (req, res, next) => {
   const disease = await Disease.create(req.body);

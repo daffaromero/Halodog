@@ -36,6 +36,12 @@ const DiseaseSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+  },
+  {
+    strict: true,
+    strictPopulate: false,
+    toJSON: { virtuals: true },
+    toObject: { virtuals : true}
   }
   //   { collection: "diseases" }
 );
@@ -45,5 +51,15 @@ DiseaseSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
+
+// Cascade delete NOT IMPLEMENTED for dev purposes
+
+// Reverse populate with virtuals
+DiseaseSchema.virtual('animal', {
+  ref: 'Animal',
+  localField: '_id',
+  foreignField: 'disease',
+  justOne: false
+})
 
 module.exports = mongoose.model("Disease", DiseaseSchema);

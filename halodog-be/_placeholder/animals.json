@@ -3,7 +3,7 @@
     "name": "Cat",
     "species": "Felis catus",
     "description": "A common house cat. Dev has three of them!",
-    "disease": "6443b64876be5beea690a85f"
+    "disease": ["6443b64876be5beea690a85f", "644398debb62f0138f48ad9a"]
   }, 
   {
     "name": "Alaskan Malamute",
