@@ -54,7 +54,7 @@ exports.getAnimal = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/diseases/:diseaseId/animals
 // @access  Private
 exports.createAnimal = asyncHandler(async (req, res, next) => {
-req.body.disease = req.params.diseaseId;
+  req.body.disease = req.params.diseaseId;
 
   const disease = await Disease.findById(req.params.diseaseId)
 
@@ -70,5 +70,48 @@ req.body.disease = req.params.diseaseId;
     success: true,
     count: animal.length,
     data: animal,
+  });
+});
+
+// @desc    Mengubah Hewan (ID)
+// @route   PUT /api/v1/animals/:id
+// @access  Private
+exports.updateAnimal = asyncHandler(async (req, res, next) => {
+  let animal = await Animal.findById(req.params.id)
+
+  if (!animal) {
+    return next(
+      new ErrorResponse(`Tidak ada penyakit dengan id ${req.params.id}`, 404)
+    );
+  }
+
+  animal = await Animal.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  })
+
+  res.status(200).json({
+    success: true,
+    data: animal,
+  });
+});
+
+// @desc    Menghapus Hewan (ID)
+// @route   DELETE /api/v1/animals/:id
+// @access  Private
+exports.deleteAnimal = asyncHandler(async (req, res, next) => {
+  const animal = await Animal.findById(req.params.id)
+
+  if (!animal) {
+    return next(
+      new ErrorResponse(`Tidak ada penyakit dengan id ${req.params.id}`, 404)
+    );
+  }
+
+  await animal.deleteOne()
+
+  res.status(200).json({
+    success: true,
+    data: {},
   });
 });
