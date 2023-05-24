@@ -23,8 +23,8 @@ exports.getAllDiseases = asyncHandler(async (req, res, next) => {
 
   // Finding resource obv
   query = Disease.find(JSON.parse(queryStr)).populate({
-    path: 'animal',
-    select: 'name species description -disease'
+    path: "animal",
+    select: "name species description -disease",
   });
 
   // Select fields
