@@ -9,24 +9,17 @@ const ErrorResponse = require("../utils/errorResponse");
 // @route   GET /api/v1/diseases/:diseaseId/animals
 // @access  Public
 exports.getAllAnimals = asyncHandler(async (req, res, next) => {
-  let query;
-
   if (req.params.diseaseId) {
-    query = Animal.find({ disease: req.params.diseaseId });
-  } else {
-    query = Animal.find().populate({
-      path: "disease",
-      select: "name description",
+    const animals = await Animal.find({ disease: req.params.diseaseId });
+
+    return res.status(200).json({
+      success: true,
+      count: animals.length,
+      data: animals,
     });
+  } else {
+    res.status(200).json(res.advancedResults);
   }
-
-  const animals = await query;
-
-  res.status(200).json({
-    success: true,
-    count: animals.length,
-    data: animals,
-  });
 });
 
 // @desc    Melihat hewan (ID)

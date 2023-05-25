@@ -11,6 +11,7 @@ const errorHandler = require("./middleware/error");
 // Route files
 const diseases = require("./routes/diseases");
 const animals = require("./routes/animals");
+const auth = require("./routes/auth")
 
 // Load env vars
 dotenv.config({ path: "./config/.env" });
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Mount routers
 app.use("/api/v1/diseases", diseases);
 app.use("/api/v1/animals", animals);
+app.use("/api/v1/auth", auth)
 
 app.use(errorHandler);
 
