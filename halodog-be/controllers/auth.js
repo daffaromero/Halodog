@@ -51,6 +51,45 @@ exports.login = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, token });
 });
 
+// @desc    Logout user
+// @route   POST /api/v1/auth/logout
+// @access  Public
+exports.logout = asyncHandler(async (req, res, next) => {
+  res.cookie("token", "none", {
+    expires: new Date(Date.now() + 5 * 1000),
+    httpOnly: true,
+  });
+
+  res.status(200).json({ success: true, data: "Anda telah log out" });
+});
+
+// @desc    Get current logged in user
+// @route   POST /api/v1/auth/me
+// @access  Public
+exports.getMe = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  res.status(200).json({ success: true, data: user });
+});
+
+// @desc    Forgot Password
+// @route   POST /api/v1/auth/forgotpassword
+// @access  Public
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(
+      new ErrorResponse("Tidak ada pengguna dengan email tersebut", 404)
+    );
+  }
+
+  // Get reset token
+  const resetToken = user.getResetPasswordToken();
+
+  res.status(200).json({ success: true, data: user });
+})
+
 // Get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {
   // Create token
@@ -72,12 +111,3 @@ const sendTokenResponse = (user, statusCode, res) => {
     token,
   });
 };
-
-// @desc    Get current logged in user
-// @route   POST /api/v1/auth/me
-// @access  Private
-exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
-
-  res.status(200).json({ success: true, data: user });
-});
