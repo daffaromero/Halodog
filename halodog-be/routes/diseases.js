@@ -1,5 +1,5 @@
 const express = require("express");
-const { 
+const {
   getAllDiseases,
   getDisease,
   createDisease,
@@ -14,14 +14,16 @@ const animalRouter = require("./animals");
 
 const router = express.Router();
 
+const { protect, authorize } = require("../middleware/auth");
+
 // Re-route into other resource routers
 router.use("/:diseaseId/animals", animalRouter);
 
 router
   .route("/")
   .get(advancedResults(Disease, "animals"), getAllDiseases)
-  .post(createDisease);
+  .post(protect, authorize('manager', 'admin'), createDisease);
 
-router.route("/:id").get(getDisease).put(updateDisease).delete(deleteDisease);
+router.route("/:id").get(getDisease).put(protect, authorize('manager', 'admin'), updateDisease).delete(protect, authorize('manager', 'admin'), deleteDisease);
 
 module.exports = router;

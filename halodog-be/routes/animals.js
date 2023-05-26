@@ -12,6 +12,9 @@ const advancedResults = require("../middleware/advancedResults");
 
 const router = express.Router({ mergeParams: true });
 
+const { protect, authorize } = require("../middleware/auth");
+const { unlock } = require("./auth");
+
 router
   .route("/")
   .get(
@@ -21,8 +24,16 @@ router
     }),
     getAllAnimals
   )
-  .post(createAnimal);
-router.route("/:id").get(getAnimal).put(updateAnimal).delete(deleteAnimal);
-router.route("/:id/photo").put(animalPhotoUpload);
+  .post(protect, authorize("manager", "admin"), createAnimal);
+
+router
+  .route("/:id")
+  .get(getAnimal)
+  .put(protect, authorize("manager", "admin"), updateAnimal)
+  .delete(protect, authorize("manager", "admin"), deleteAnimal);
+router
+  .route("/:id/photo")
+  .put(protect, authorize("manager", "admin"), animalPhotoUpload);
 
 module.exports = router;
+unlock;
