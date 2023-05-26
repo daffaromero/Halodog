@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "6443b64876be5beea690a85f",
+    "name": "New Disease",
+    "description": "This is a placeholder description yada yada. Dev got lazy.",
+    "photo": "no-photo.jpg",
+    "bool_rule1": false,
+    "bool_rule2": true,
+    "color": "Red",
+    "createdAt": "2023-04-22T10:26:16.058Z",
+    "slug": "new-disease",
+    "__v": 0
+  },
+  {
+    "_id": "644398debb62f0138f48ad9a",
+    "name": "Sample Disease",
+    "description": "This is a placeholder description yada yada. Dev got lazy.",
+    "photo": "no-photo.jpg",
+    "bool_rule1": false,
+    "bool_rule2": true,
+    "color": "Red",
+    "createdAt": "2023-04-22T08:20:46.673Z",
+    "slug": "sample-disease",
+    "__v": 0
+  }
+]

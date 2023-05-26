@@ -1,118 +1,89 @@
 const Disease = require("../models/Disease");
+const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 
 // @desc    Melihat penyakit (semua)
 // @route   GET /api/v1/diseases
 // @access  Public
-exports.getAllDiseases = async (req, res, next) => {
-  try {
-    const diseases = await Disease.find();
-
-    res.status(200).json({
-      success: true,
-      count: diseases.length,
-      data: diseases,
-    });
-  } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
-  }
-};
+exports.getAllDiseases = asyncHandler(async (req, res, next) => {
+  return res.status(200).json(res.advancedResults);
+});
 
 // @desc    Melihat penyakit (ID)
 // @route   GET /api/v1/diseases/:id
 // @access  Public
-exports.getDisease = async (req, res, next) => {
-  try {
-    const disease = await Disease.findById(req.params.id);
+exports.getDisease = asyncHandler(async (req, res, next) => {
+  const disease = await Disease.findById(req.params.id);
 
-    if (!disease) {
-      // Kalau ID tidak ditemukan di database
-      return next(
-        new ErrorResponse(
-          `Penyakit tidak ditemukan dengan id ${req.params.id}`,
-          404
-        )
-      );
-    }
-    res.status(200).json({
-      success: true,
-      data: disease,
-    });
-  } catch (err) {
-    // Kalau ID salah format
-    next(
+  if (!disease) {
+    // Kalau ID tidak ditemukan di database
+    return next(
       new ErrorResponse(
         `Penyakit tidak ditemukan dengan id ${req.params.id}`,
         404
       )
     );
   }
-};
+  res.status(200).json({
+    success: true,
+    data: disease,
+  });
+});
 
 // @desc    Tambah Penyakit
-// @route   POST /api/v1/diseases/
+// @route   POST /api/v1/diseases
 // @access  Private
-exports.createDisease = async (req, res, next) => {
-  try {
-    const disease = await Disease.create(req.body);
+exports.createDisease = asyncHandler(async (req, res, next) => {
+  const disease = await Disease.create(req.body);
 
-    res.status(201).json({
-      success: true,
-      data: disease,
-    });
-  } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
-  }
-};
+  res.status(201).json({
+    success: true,
+    data: disease,
+  });
+});
 
 // @desc    Mengubah penyakit (ID)
 // @route   PUT /api/v1/diseases/:id
 // @access  Private
-exports.updateDisease = async (req, res, next) => {
-  try {
-    const disease = await Disease.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+exports.updateDisease = asyncHandler(async (req, res, next) => {
+  const disease = await Disease.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
-    if (!disease) {
-      return res.status(400).json({ success: false });
-    }
-
-    res.status(200).json({
-      success: true,
-      data: disease,
-    });
-  } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+  if (!disease) {
+    return next(
+      new ErrorResponse(
+        `Penyakit tidak ditemukan dengan id ${req.params.id}`,
+        404
+      )
+    );
   }
-};
+
+  res.status(200).json({
+    success: true,
+    data: disease,
+  });
+});
 
 // @desc    Menghapus penyakit (ID)
 // @route   DELETE /api/v1/diseases/:id
 // @access  Private
-exports.deleteDisease = async (req, res, next) => {
-  try {
-    const disease = await Disease.findByIdAndDelete(req.params.id);
+exports.deleteDisease = asyncHandler(async (req, res, next) => {
+  const disease = await Disease.findByIdAndDelete(req.params.id);
 
-    if (!disease) {
-      return res.status(400).json({ success: false });
-    }
-
-    res.status(200).json({
-      success: true,
-      msg: "Data berhasil dihapus.",
-      data: {},
-    });
-  } catch (err) {
-    res.status(400).json({
-      success: false,
-    });
+  if (!disease) {
+    return next(
+      new ErrorResponse(
+        `Penyakit tidak ditemukan dengan id ${req.params.id}`,
+        404
+      )
+    );
   }
-};
+
+  res.status(200).json({
+    success: true,
+    msg: "Data berhasil dihapus.",
+    data: {},
+  });
+});

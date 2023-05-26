@@ -6,11 +6,24 @@ const {
   updateDisease,
   deleteDisease,
 } = require("../controllers/diseases");
+const Disease = require("../models/Disease");
+const advancedResults = require("../middleware/advancedResults");
+
+// Include other resource routers
+const animalRouter = require("./animals");
 
 const router = express.Router();
 
-router.route("/").get(getAllDiseases).post(createDisease);
+const { protect, authorize } = require("../middleware/auth");
 
-router.route("/:id").get(getDisease).put(updateDisease).delete(deleteDisease);
+// Re-route into other resource routers
+router.use("/:diseaseId/animals", animalRouter);
+
+router
+  .route("/")
+  .get(advancedResults(Disease, "animals"), getAllDiseases)
+  .post(protect, authorize('manager', 'admin'), createDisease);
+
+router.route("/:id").get(getDisease).put(protect, authorize('manager', 'admin'), updateDisease).delete(protect, authorize('manager', 'admin'), deleteDisease);
 
 module.exports = router;
