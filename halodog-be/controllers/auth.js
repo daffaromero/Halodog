@@ -1,5 +1,7 @@
+const crypto = require("crypto");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
+const sendEmail = require("../utils/sendEmail");
 const User = require("../models/User");
 
 // @desc    Register user
@@ -74,7 +76,7 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 
 // @desc    Forgot Password
 // @route   POST /api/v1/auth/forgotpassword
-// @access  Public
+// @access  Private
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
@@ -87,8 +89,63 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   // Get reset token
   const resetToken = user.getResetPasswordToken();
 
-  res.status(200).json({ success: true, data: user });
-})
+  await user.save({ validateBeforeSave: false });
+
+  // Create reset URL
+  const resetUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/auth/resetpassword/${resetToken}`;
+
+  const message = `Anda menerima email ini karena Anda (atau seseorang) telah meminta untuk mengatur ulang kata sandi akun Anda. Silakan buka tautan berikut dalam 10 menit berikut untuk mengatur ulang kata sandi Anda: \n\n ${resetUrl}`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "Reset Password",
+      message,
+    });
+
+    return res
+      .status(200)
+      .json({ success: true, data: `Email dikirim ke ${user.email}` });
+  } catch (err) {
+    console.log(err);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save({ validateBeforeSave: false });
+
+    return next(new ErrorResponse("Email tidak dapat dikirim", 500));
+  }
+});
+
+// @desc    Reset Password
+// @route   PUT /api/v1/auth/resetpassword/:resettoken
+// @access  Public
+exports.resetPassword = asyncHandler(async (req, res, next) => {
+  // Get hashed token
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.resettoken)
+    .digest("hex");
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new ErrorResponse("Token tidak valid", 400));
+  }
+
+  // Set new password
+  user.password = req.body.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+  await user.save()
+
+  sendTokenResponse(user, 200, res);
+});
 
 // Get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {
