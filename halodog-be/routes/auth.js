@@ -13,6 +13,9 @@ const { protect } = require("../middleware/auth");
 
 const router = express.Router();
 
+const cors = require("cors");
+router.use(cors());
+
 router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/logout").post(protect, logout);

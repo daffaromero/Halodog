@@ -11,6 +11,9 @@ const Animal = require("../models/Animal");
 
 const router = express.Router({ mergeParams: true });
 
+const cors = require("cors");
+router.use(cors());
+
 const advancedResults = require("../middleware/advancedResults");
 const { protect, authorize } = require("../middleware/auth");
 const { unlock } = require("./auth");

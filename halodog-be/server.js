@@ -29,6 +29,9 @@ app.use(express.json());
 // Cookie parser
 app.use(cookieParser());
 
+// Enable CORS requests
+app.use(cors());
+
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
