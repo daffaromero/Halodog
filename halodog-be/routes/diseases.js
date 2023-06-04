@@ -7,13 +7,13 @@ const {
   deleteDisease,
 } = require("../controllers/diseases");
 const Disease = require("../models/Disease");
-const advancedResults = require("../middleware/advancedResults");
 
 // Include other resource routers
 const animalRouter = require("./animals");
 
 const router = express.Router();
 
+const advancedResults = require("../middleware/advancedResults");
 const { protect, authorize } = require("../middleware/auth");
 
 // Re-route into other resource routers
