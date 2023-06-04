@@ -27,8 +27,11 @@ Repo front-end:
 
 - [React.js (Next.js) front-end web app](https://github.com/daffaromero/Halodog/tree/main/halodog-fe) - folder di repo ini
 
-Soon&#8482;
+Deployed!
 ------
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 
-Deployment: Vercel?
+API back-end telah di-deploy di [Vercel](https://halodog-api.vercel.app/api/v1/diseases)
+
+Route yang tersedia: [Postman](https://documenter.getpostman.com/view/23369815/2s93Y5NeRf)
