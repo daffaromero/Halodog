@@ -1,3 +1,4 @@
+const AWS = require("aws-sdk");
 const path = require("path");
 const Animal = require("../models/Animal");
 const Disease = require("../models/Disease");
@@ -146,20 +147,31 @@ exports.animalPhotoUpload = asyncHandler(async (req, res, next) => {
     );
   }
 
+  const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  });
+
   // Buat nama file custom
   file.name = `photo_${animal._id}${path.parse(file.name).ext}`;
 
-  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
+  const params = {
+    Bucket: process.env.S3_BUCKET_NAME,
+    Key: file.name,
+    Body: file.data,
+  };
+
+  s3.upload(params, async function (err, data) {
     if (err) {
       console.error(err);
       return next(new ErrorResponse(`Terjadi kesalahan saat upload.`, 500));
     }
 
-    await Animal.findByIdAndUpdate(req.params.id, { photo: file.name });
+    await Animal.findByIdAndUpdate(req.params.id, { photo: data.Location });
 
     res.status(200).json({
       success: true,
-      data: file.name,
+      data: data.Location,
     });
   });
 });
