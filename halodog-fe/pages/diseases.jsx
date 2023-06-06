@@ -41,12 +41,11 @@ const DiseasesPage = ({ initialData }) => {
         toast.error(err.response.data.errors);
       });
   };
-
   return (
     <div>
       <h1>Diseases</h1>
       <form
-        className="w-full h-[80%] justify-between items-center flex flex-col  "
+        className="w-full h-[80%] justify-between items-center flex flex-col"
         onSubmit={handleSubmit}
       >
         {data_response.success &&
@@ -54,15 +53,7 @@ const DiseasesPage = ({ initialData }) => {
             <div key={index}>
               <h2>{disease.name}</h2>
               <p>{disease.description}</p>
-              {/* <p>Color: {disease.color}</p> */}
-              <p>Rule 1: {disease.bool_rule1 ? "True" : "False"}</p>
-              <p>Rule 2: {disease.bool_rule2 ? "True" : "False"}</p>
-              {/* <input
-                type="text"
-                id="text1"
-                onChange={handleFileInputChange}
-                className="border border-slate-200 shadow-md p-3 text-black"
-              /> */}
+              <p>Gejala Umum : {disease.symptoms.join(", ")}</p>
             </div>
           ))}
         <input
