@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const colors = require("colors");
 const fileupload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
-const AWS = require('aws-sdk')
+const AWS = require("aws-sdk");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
 

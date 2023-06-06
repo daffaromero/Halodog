@@ -114,6 +114,50 @@ exports.deleteAnimal = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc    Melihat Penyakit Hewan
+// @route   POST /api/v1/animals/predict-disease
+// @access  Public
+exports.predictAnimalDiseases = asyncHandler(async (req, res, next) => {
+  const animalName = req.body.animal;
+  const symptoms = req.body.symptoms;
+
+  if (!animalName || !symptoms) {
+    return next(new ErrorResponse(`Masukkan nama hewan dan gejala.`, 400));
+  }
+
+  const animal = await Animal.findOne({ name: animalName });
+
+  if (!animal) {
+    return next(new ErrorResponse(`Hewan tidak ditemukan.`, 404));
+  }
+
+  let maxSymptomMatch = 0;
+  let predictedDisease = 'Penyakit tidak ditemukan';
+
+  for (let _id of animal.disease) {
+    const disease = await Disease.findById(_id);
+    let symptomMatch = 0;
+
+    for (let symptom of symptoms) {
+      if (disease.symptoms.includes(symptom)) {
+        symptomMatch++;
+      }
+
+      if (symptomMatch > maxSymptomMatch) {
+        maxSymptomMatch = symptomMatch;
+        predictedDisease = disease.name;
+      }
+    }
+
+  }
+
+  res.status(200).json({
+    success: true,
+    data: predictedDisease,
+  });
+
+});
+
 // @desc    Upload Foto Hewan
 // @route   PUT /api/v1/animals/:id/photo
 // @access  Private
@@ -168,6 +212,59 @@ exports.animalPhotoUpload = asyncHandler(async (req, res, next) => {
     }
 
     await Animal.findByIdAndUpdate(req.params.id, { photo: data.Location });
+
+    res.status(200).json({
+      success: true,
+      data: data.Location,
+    });
+  });
+});
+
+// @desc    Upload Foto Hewan (Public)
+// @route   PUT /api/v1/animals/upload/photo
+// @access  Public
+exports.animalPhotoUploadPublic = asyncHandler(async (req, res, next) => {
+
+  if (!req.files) {
+    return next(new ErrorResponse(`Please upload a file.`, 400));
+  }
+
+  const file = req.files.file;
+
+  // Pastikan bahwa file adalah foto
+  if (!file.mimetype.startsWith("image")) {
+    return next(new ErrorResponse(`Please upload an image file.`, 400));
+  }
+
+  // Cek ukuran file
+  if (file.size > process.env.MAX_FILE_UPLOAD) {
+    return next(
+      new ErrorResponse(
+        `Ukuran foto maksimal ${process.env.MAX_FILE_UPLOAD}.`,
+        400
+      )
+    );
+  }
+
+  const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  });
+
+  // Buat nama file custom
+  file.name = `photo_${path.parse(file.name).ext}`;
+
+  const params = {
+    Bucket: process.env.S3_BUCKET_NAME,
+    Key: file.name,
+    Body: file.data,
+  };
+
+  s3.upload(params, async function (err, data) {
+    if (err) {
+      console.error(err);
+      return next(new ErrorResponse(`Terjadi kesalahan saat upload.`, 500));
+    }
 
     res.status(200).json({
       success: true,
