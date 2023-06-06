@@ -114,6 +114,50 @@ exports.deleteAnimal = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc    Melihat Penyakit Hewan
+// @route   POST /api/v1/animals/predict-disease
+// @access  Public
+exports.predictAnimalDiseases = asyncHandler(async (req, res, next) => {
+  const animalName = req.body.animal;
+  const symptoms = req.body.symptoms;
+
+  if (!animalName || !symptoms) {
+    return next(new ErrorResponse(`Masukkan nama hewan dan gejala.`, 400));
+  }
+
+  const animal = await Animal.findOne({ name: animalName });
+
+  if (!animal) {
+    return next(new ErrorResponse(`Hewan tidak ditemukan.`, 404));
+  }
+
+  let maxSymptomMatch = 0;
+  let predictedDisease = 'Penyakit tidak ditemukan';
+
+  for (let _id of animal.disease) {
+    const disease = await Disease.findById(_id);
+    let symptomMatch = 0;
+
+    for (let symptom of symptoms) {
+      if (disease.symptoms.includes(symptom)) {
+        symptomMatch++;
+      }
+
+      if (symptomMatch > maxSymptomMatch) {
+        maxSymptomMatch = symptomMatch;
+        predictedDisease = disease.name;
+      }
+    }
+
+  }
+
+  res.status(200).json({
+    success: true,
+    data: predictedDisease,
+  });
+
+});
+
 // @desc    Upload Foto Hewan
 // @route   PUT /api/v1/animals/:id/photo
 // @access  Private

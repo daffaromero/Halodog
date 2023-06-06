@@ -7,6 +7,7 @@ const {
   deleteAnimal,
   animalPhotoUpload,
   animalPhotoUploadPublic,
+  predictAnimalDiseases
 } = require("../controllers/animals");
 const Animal = require("../models/Animal");
 
@@ -38,6 +39,9 @@ router
 router
   .route("/:id/photo")
   .put(protect, authorize("manager", "admin"), animalPhotoUpload);
+
 router.route("/upload/photo").post(animalPhotoUploadPublic);
+router.route("/predict-disease").post(predictAnimalDiseases);
+
 module.exports = router;
 unlock;
