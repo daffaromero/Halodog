@@ -1,6 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
-import { axiosInstance } from "@/utils/config";
-import axios from "axios";
++import React, { useState, useRef, useEffect } from "react";
 
 export default function upload() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -9,78 +7,43 @@ export default function upload() {
   const [isDeleted, setIsDeleted] = useState(false);
   const [prediction, setPrediction] = useState(null);
   const [confidence, setConfidence] = useState(null);
+  const [url, setUrl] = useState(null); 
   const [isLoading, setIsLoading] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
   const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setSelectedImage(file);
-      setShowedImage(URL.createObjectURL(file));
-    }
-  };
-
-  const handleFormUpload = async (event) => {
-    event.preventDefault();
-  
-    if (selectedImage) {
-      const formData = new FormData();
-      formData.append("file", selectedImage);
-  
-      setIsLoading(true); // Activate loader
-  
-      try {
-        // Make the request to the API
-        const res = await axiosInstance.post("/animals/upload/photo", formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-  
-        // You can then access the response data like this
-        console.log(res.data);
-  
-        // Assuming the response contains fields 'predict' and 'confidence'
-        setPrediction(res.data.data);
-        // setConfidence(res.data.confidence);
-      } catch (error) {
-        console.error(error);
-      }
-  
-      setIsLoading(false); // Deactivate loader after finishing
-    }
+    // const file = event.target.files[0];
+    // if (file) {
+    //   setSelectedImage(file);
+    //   setShowedImage(URL.createObjectURL(file));
+    // }
+    setUrl(event.target.value);
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (selectedImage) {
       const formData = new FormData();
       formData.append("file", selectedImage);
-  
-      setIsLoading(true); // Activate loader
-  
+
+      setIsLoading(true); // Aktifkan loader
+
       try {
-        // Make the request to the API
-        const res = await axios.post("http://tulations.eastus.cloudapp.azure.com:5000/predict", {
-          data: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+        const response = await fetch("http://tulations.eastus.cloudapp.azure.com:5000/predict", {
+          method: "POST",
+          body: formData,
         });
-  
-        // You can then access the response data like this
-        console.log(res.data);
-  
-        // Assuming the response contains a 'data' field with a 'data' subfield
-        setPrediction(res.data.data);
-        // setConfidence(res.data.confidence);
+
+        const data = await response.json();
+        setPrediction(data.predicted_class);
+        setConfidence(data.confidence);
       } catch (error) {
         console.error(error);
       }
-  
-      setIsLoading(false); // Deactivate loader after finishing
+
+      setIsLoading(false); // Matikan loader setelah selesai
     }
   };
 
@@ -222,16 +185,16 @@ export default function upload() {
             </div>
           )}
         </div>
+        <p>{url}</p>
         <div className="">
           <label htmlFor="fileInput" className="block mb-2">
             Upload Image:
           </label>
           <input
-            type="file"
-            id="fileInput"
-            accept="image/*"
+            type="url"
+            id="urlinput"
             onChange={handleFileInputChange}
-            className="border border-slate-200 shadow-md p-3"
+            className="border border-slate-200 shadow-md p-3 text-black"
           />
         </div>
         <div className="mb-4 h-full">
@@ -259,7 +222,7 @@ export default function upload() {
             </button>
           )}
 
-          {/* {isCameraActive ? (
+          {isCameraActive ? (
             <button
               onClick={handleStopCamera}
               className={`bg-red-500 text-white px-4 py-2 rounded mr-2 hover:bg-red-800 transform transition duration-300`}
@@ -274,28 +237,17 @@ export default function upload() {
             >
               Start Camera
             </button>
-          )} */}
-          {selectedImage !== null ? (
-            <div className="flex">
-            <button
-                    onClick={handleFormUpload}
-                        className={`bg-red-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-800 transform transition duration-300`}
-            >
-            Upload
-            </button>,
+          )}
+          {url !== null ? (
             <button
               onClick={handleFormSubmit}
               className={`bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-800 transform transition duration-300`}
             >
-              Submit
+              Predict
             </button>
-            </div> 
           ) : (
             <></>
-          )
-          
-          }
-          
+          )}
           {prediction !== null ? (
             <div className="flex flex-col">
               <h2>Prediction: {prediction}</h2>
@@ -308,4 +260,4 @@ export default function upload() {
       </div>
     </>
   );
-}
+          }

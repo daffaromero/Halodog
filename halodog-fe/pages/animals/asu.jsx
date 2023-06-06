@@ -154,6 +154,7 @@ export default function upload() {
 
   return (
     <>
+
       <div className="container px-4 md:px-10 lg:px-40 py-8 flex flex-col h-full justify-center">
         <p className="text-2xl font-bold mb-4 text-black text-center">
           Image Upload
