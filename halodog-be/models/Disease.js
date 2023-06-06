@@ -32,6 +32,10 @@ const DiseaseSchema = new mongoose.Schema(
       type: String,
       default: "Red",
     },
+    symptoms: {
+      type: [String],
+      default: ["Placeholder Symptom"],
+    },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -41,7 +45,7 @@ const DiseaseSchema = new mongoose.Schema(
     strict: true,
     strictPopulate: false,
     toJSON: { virtuals: true },
-    toObject: { virtuals : true}
+    toObject: { virtuals: true },
   }
   //   { collection: "diseases" }
 );
@@ -55,11 +59,11 @@ DiseaseSchema.pre("save", function (next) {
 // Cascade delete NOT IMPLEMENTED for dev purposes
 
 // Reverse populate with virtuals
-DiseaseSchema.virtual('animal', {
-  ref: 'Animal',
-  localField: '_id',
-  foreignField: 'disease',
-  justOne: false
-})
+DiseaseSchema.virtual("animal", {
+  ref: "Animal",
+  localField: "_id",
+  foreignField: "disease",
+  justOne: false,
+});
 
 module.exports = mongoose.model("Disease", DiseaseSchema);
