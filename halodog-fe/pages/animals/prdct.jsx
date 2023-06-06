@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { axiosInstance } from "@/utils/config";
+import axios from "axios";
 
 export default function upload() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -62,7 +63,8 @@ export default function upload() {
   
       try {
         // Make the request to the API
-        const res = await axiosInstance.post("http://tulations.eastus.cloudapp.azure.com:5000/predict", formData, {
+        const res = await axios.post("http://tulations.eastus.cloudapp.azure.com:5000/predict", {
+          data: formData,
           headers: {
             'Content-Type': 'multipart/form-data'
           }
