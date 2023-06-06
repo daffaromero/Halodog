@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { axiosInstance } from "@/utils/config";
 
 export default function upload() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -7,43 +8,77 @@ export default function upload() {
   const [isDeleted, setIsDeleted] = useState(false);
   const [prediction, setPrediction] = useState(null);
   const [confidence, setConfidence] = useState(null);
-  const [url, setUrl] = useState(null); 
   const [isLoading, setIsLoading] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
   const handleFileInputChange = (event) => {
-    // const file = event.target.files[0];
-    // if (file) {
-    //   setSelectedImage(file);
-    //   setShowedImage(URL.createObjectURL(file));
-    // }
-    setUrl(event.target.value);
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setShowedImage(URL.createObjectURL(file));
+    }
+  };
+
+  const handleFormUpload = async (event) => {
+    event.preventDefault();
+  
+    if (selectedImage) {
+      const formData = new FormData();
+      formData.append("file", selectedImage);
+  
+      setIsLoading(true); // Activate loader
+  
+      try {
+        // Make the request to the API
+        const res = await axiosInstance.post("/animals/upload/photo", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+  
+        // You can then access the response data like this
+        console.log(res.data);
+  
+        // Assuming the response contains fields 'predict' and 'confidence'
+        setPrediction(res.data.data);
+        // setConfidence(res.data.confidence);
+      } catch (error) {
+        console.error(error);
+      }
+  
+      setIsLoading(false); // Deactivate loader after finishing
+    }
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (selectedImage) {
       const formData = new FormData();
       formData.append("file", selectedImage);
-
-      setIsLoading(true); // Aktifkan loader
-
+  
+      setIsLoading(true); // Activate loader
+  
       try {
-        const response = await fetch("http://tulations.eastus.cloudapp.azure.com:5000/predict", {
-          method: "POST",
-          body: formData,
+        // Make the request to the API
+        const res = await axiosInstance.post("http://tulations.eastus.cloudapp.azure.com:5000/predict", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         });
-
-        const data = await response.json();
-        setPrediction(data.predicted_class);
-        setConfidence(data.confidence);
+  
+        // You can then access the response data like this
+        console.log(res.data);
+  
+        // Assuming the response contains a 'data' field with a 'data' subfield
+        setPrediction(res.data.data);
+        // setConfidence(res.data.confidence);
       } catch (error) {
         console.error(error);
       }
-
-      setIsLoading(false); // Matikan loader setelah selesai
+  
+      setIsLoading(false); // Deactivate loader after finishing
     }
   };
 
@@ -55,72 +90,72 @@ export default function upload() {
   useEffect(() => {
     let stream = null;
 
-    // const enableCamera = async () => {
-    //   try {
-    //     if (isCameraActive) {
-    //       stream = await navigator.mediaDevices.getUserMedia({
-    //         video: isCameraActive,
-    //       });
+    const enableCamera = async () => {
+      try {
+        if (isCameraActive) {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: isCameraActive,
+          });
 
-    //       // Use the stream to set the video source
-    //       if (videoRef.current) {
-    //         videoRef.current.srcObject = stream;
-    //       }
-    //     } else {
-    //       // Turn off camera
-    //       if (videoRef.current) {
-    //         videoRef.current.srcObject = null;
-    //       }
-    //     }
-    //   } catch (error) {
-    //     // Handle error
-    //     console.log(error);
-    //   }
-    // };
+          // Use the stream to set the video source
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
+        } else {
+          // Turn off camera
+          if (videoRef.current) {
+            videoRef.current.srcObject = null;
+          }
+        }
+      } catch (error) {
+        // Handle error
+        console.log(error);
+      }
+    };
 
-    // enableCamera();
+    enableCamera();
 
-  //   return () => {
-  //     if (stream && stream.getTracks) {
-  //       stream.getTracks().forEach((track) => {
-  //         track.stop(); // Stop all tracks of the stream
-  //       });
-  //     }
-  //   };
-  // }, [isCameraActive]);
+    return () => {
+      if (stream && stream.getTracks) {
+        stream.getTracks().forEach((track) => {
+          track.stop(); // Stop all tracks of the stream
+        });
+      }
+    };
+  }, [isCameraActive]);
 
-  // const handleTakeImageClick = async () => {
-  //   setIsDeleted(false);
-  //   try {
-  //     if (isCameraActive) {
-  //       // Stop the camera stream
-  //       const stream = videoRef.current.srcObject;
-  //       const tracks = stream.getTracks();
-  //       tracks.forEach((track) => track.stop());
+  const handleTakeImageClick = async () => {
+    setIsDeleted(false);
+    try {
+      if (isCameraActive) {
+        // Stop the camera stream
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => track.stop());
 
-  //       setIsCameraActive(false);
-  //     } else {
-  //       // Start the camera stream
-  //       const stream = await navigator.mediaDevices.getUserMedia({
-  //         video: true,
-  //       });
+        setIsCameraActive(false);
+      } else {
+        // Start the camera stream
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
 
-  //       // Update the video source and play it
-  //       videoRef.current.srcObject = stream;
-  //       videoRef.current.play();
+        // Update the video source and play it
+        videoRef.current.srcObject = stream;
+        videoRef.current.play();
 
-  //       setIsCameraActive(true);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error accessing camera:", error);
-  //   }
-  // };
+        setIsCameraActive(true);
+      }
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+    }
+  };
 
-  // const handleStopCamera = () => {
-  //   setSelectedImage(null);
-  //   setShowedImage(null);
-  //   setIsCameraActive(false);
-  // };
+  const handleStopCamera = () => {
+    setSelectedImage(null);
+    setShowedImage(null);
+    setIsCameraActive(false);
+  };
 
   const handleCaptureImageClick = () => {
     const canvas = canvasRef.current;
@@ -185,16 +220,16 @@ export default function upload() {
             </div>
           )}
         </div>
-        <p>{url}</p>
         <div className="">
           <label htmlFor="fileInput" className="block mb-2">
             Upload Image:
           </label>
           <input
-            type="url"
-            id="urlinput"
+            type="file"
+            id="fileInput"
+            accept="image/*"
             onChange={handleFileInputChange}
-            className="border border-slate-200 shadow-md p-3 text-black"
+            className="border border-slate-200 shadow-md p-3"
           />
         </div>
         <div className="mb-4 h-full">
@@ -222,7 +257,7 @@ export default function upload() {
             </button>
           )}
 
-          {isCameraActive ? (
+          {/* {isCameraActive ? (
             <button
               onClick={handleStopCamera}
               className={`bg-red-500 text-white px-4 py-2 rounded mr-2 hover:bg-red-800 transform transition duration-300`}
@@ -237,17 +272,28 @@ export default function upload() {
             >
               Start Camera
             </button>
-          )}
-          {url !== null ? (
+          )} */}
+          {selectedImage !== null ? (
+            <div className="flex">
+            <button
+                    onClick={handleFormUpload}
+                        className={`bg-red-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-800 transform transition duration-300`}
+            >
+            Upload
+            </button>,
             <button
               onClick={handleFormSubmit}
               className={`bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-800 transform transition duration-300`}
             >
-              Predict
+              Submit
             </button>
+            </div> 
           ) : (
             <></>
-          )}
+          )
+          
+          }
+          
           {prediction !== null ? (
             <div className="flex flex-col">
               <h2>Prediction: {prediction}</h2>

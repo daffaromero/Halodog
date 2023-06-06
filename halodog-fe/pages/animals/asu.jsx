@@ -7,18 +7,16 @@ export default function upload() {
   const [isDeleted, setIsDeleted] = useState(false);
   const [prediction, setPrediction] = useState(null);
   const [confidence, setConfidence] = useState(null);
-  const [url, setUrl] = useState(null); 
   const [isLoading, setIsLoading] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
   const handleFileInputChange = (event) => {
-    // const file = event.target.files[0];
-    // if (file) {
-    //   setSelectedImage(file);
-    //   setShowedImage(URL.createObjectURL(file));
-    // }
-    setUrl(event.target.value);
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setShowedImage(URL.createObjectURL(file));
+    }
   };
 
   const handleFormSubmit = async (event) => {
@@ -31,13 +29,13 @@ export default function upload() {
       setIsLoading(true); // Aktifkan loader
 
       try {
-        const response = await fetch("http://tulations.eastus.cloudapp.azure.com:5000/predict", {
+        const response = await fetch("http://127.0.0.1:5000/data", {
           method: "POST",
           body: formData,
         });
 
         const data = await response.json();
-        setPrediction(data.predicted_class);
+        setPrediction(data.predict);
         setConfidence(data.confidence);
       } catch (error) {
         console.error(error);
@@ -55,72 +53,72 @@ export default function upload() {
   useEffect(() => {
     let stream = null;
 
-    // const enableCamera = async () => {
-    //   try {
-    //     if (isCameraActive) {
-    //       stream = await navigator.mediaDevices.getUserMedia({
-    //         video: isCameraActive,
-    //       });
+    const enableCamera = async () => {
+      try {
+        if (isCameraActive) {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: isCameraActive,
+          });
 
-    //       // Use the stream to set the video source
-    //       if (videoRef.current) {
-    //         videoRef.current.srcObject = stream;
-    //       }
-    //     } else {
-    //       // Turn off camera
-    //       if (videoRef.current) {
-    //         videoRef.current.srcObject = null;
-    //       }
-    //     }
-    //   } catch (error) {
-    //     // Handle error
-    //     console.log(error);
-    //   }
-    // };
+          // Use the stream to set the video source
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
+        } else {
+          // Turn off camera
+          if (videoRef.current) {
+            videoRef.current.srcObject = null;
+          }
+        }
+      } catch (error) {
+        // Handle error
+        console.log(error);
+      }
+    };
 
-    // enableCamera();
+    enableCamera();
 
-  //   return () => {
-  //     if (stream && stream.getTracks) {
-  //       stream.getTracks().forEach((track) => {
-  //         track.stop(); // Stop all tracks of the stream
-  //       });
-  //     }
-  //   };
-  // }, [isCameraActive]);
+    return () => {
+      if (stream && stream.getTracks) {
+        stream.getTracks().forEach((track) => {
+          track.stop(); // Stop all tracks of the stream
+        });
+      }
+    };
+  }, [isCameraActive]);
 
-  // const handleTakeImageClick = async () => {
-  //   setIsDeleted(false);
-  //   try {
-  //     if (isCameraActive) {
-  //       // Stop the camera stream
-  //       const stream = videoRef.current.srcObject;
-  //       const tracks = stream.getTracks();
-  //       tracks.forEach((track) => track.stop());
+  const handleTakeImageClick = async () => {
+    setIsDeleted(false);
+    try {
+      if (isCameraActive) {
+        // Stop the camera stream
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => track.stop());
 
-  //       setIsCameraActive(false);
-  //     } else {
-  //       // Start the camera stream
-  //       const stream = await navigator.mediaDevices.getUserMedia({
-  //         video: true,
-  //       });
+        setIsCameraActive(false);
+      } else {
+        // Start the camera stream
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
 
-  //       // Update the video source and play it
-  //       videoRef.current.srcObject = stream;
-  //       videoRef.current.play();
+        // Update the video source and play it
+        videoRef.current.srcObject = stream;
+        videoRef.current.play();
 
-  //       setIsCameraActive(true);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error accessing camera:", error);
-  //   }
-  // };
+        setIsCameraActive(true);
+      }
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+    }
+  };
 
-  // const handleStopCamera = () => {
-  //   setSelectedImage(null);
-  //   setShowedImage(null);
-  //   setIsCameraActive(false);
-  // };
+  const handleStopCamera = () => {
+    setSelectedImage(null);
+    setShowedImage(null);
+    setIsCameraActive(false);
+  };
 
   const handleCaptureImageClick = () => {
     const canvas = canvasRef.current;
@@ -185,16 +183,16 @@ export default function upload() {
             </div>
           )}
         </div>
-        <p>{url}</p>
         <div className="">
           <label htmlFor="fileInput" className="block mb-2">
             Upload Image:
           </label>
           <input
-            type="url"
-            id="urlinput"
+            type="file"
+            id="fileInput"
+            accept="image/*"
             onChange={handleFileInputChange}
-            className="border border-slate-200 shadow-md p-3 text-black"
+            className="border border-slate-200 shadow-md p-3"
           />
         </div>
         <div className="mb-4 h-full">
@@ -238,7 +236,7 @@ export default function upload() {
               Start Camera
             </button>
           )}
-          {url !== null ? (
+          {selectedImage !== null ? (
             <button
               onClick={handleFormSubmit}
               className={`bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-800 transform transition duration-300`}
