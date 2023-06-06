@@ -166,9 +166,37 @@ Mempermudah konsultasi penyakit hewan, sehingga dapat diakses oleh orang-orang d
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+Easter egg! - Daffa Romero
+
 Di baris bawah ini saya sembunyikan (dengan tidak hati-hati) bahwa beberapa anggota tim ini menunjukkan tanda-tanda ketidakniatan/ketidakinginan mengerjakan proyek senior. Detail akan muncul/hilang seiring waktu.
 
-Details (4 Juni 2023)
-1 kerja berat
-2 sok kerja
-1 tidak kerja
+Details (7 Juni 2023, 02:43 WIB)
+
+Daffa Muhammad Romero: kerja berat (BE, ML, deploy, FE sebagian)
+
+Muhamad Thoriq Ahnaf: kerja berat (FE, PM)
+
+Muhammad Zikriansyah: haha hihi tidak kerja
+
+Ruth Perdana Saragih: haha hihi tidak kerja
