@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../components/navbar.jsx";
 
-
 const DiseasesPage = ({ initialData }) => {
   const [data, setData] = useState(initialData);
   const [gejala, setGejala] = useState("");
@@ -31,9 +30,9 @@ const DiseasesPage = ({ initialData }) => {
   const handleGejalaChange = (e) => {
     const inputValue = e.target.value;
     const symptomsArray = inputValue
-    .split(",")
-    .map((symptom) => symptom.trim());
-  setGejala(symptomsArray);
+      .split(",")
+      .map((symptom) => symptom.trim());
+    setGejala(symptomsArray);
     setResponse(symptomsArray);
     console.log(gejala);
   };
@@ -60,46 +59,50 @@ const DiseasesPage = ({ initialData }) => {
 
   return (
     <div>
-    <Navbar />
-    <div className="container px-4 md:px-10 lg:px-40 py-8 flex flex-col h-full justify-center">
-      <h1 className="text-2xl font-bold mb-4 text-black text-center">Diseases</h1>
-      <form onSubmit={handleSubmit}>
-        {data_response !== "" ? (
-          <>
-            {" "}
-            <div className="mb-4">
+      <Navbar />
+      <div className='container px-4 md:px-10 lg:px-40 py-8 flex flex-col h-full justify-center'>
+        <h1 className='text-2xl font-bold mb-4 text-black text-center'>
+          Prediksi Penyakit Hewan
+        </h1>
+        <p className='text-center mb-4'>
+          Masukkan jenis hewan dan gejala yang dialami hewan Anda.
+        </p>
+        <br></br>
+        <form onSubmit={handleSubmit}>
+          {data_response !== "" ? (
+            <>
+              {" "}
+              <div className='mb-4'>
+                <p>Kemungkinan Penyakit : </p>
+                <h2 className='text-2xl font-bold'>{data_response.data}</h2>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
 
-              <p>Kemungkinan Penyakit : </p>
-              <h2 className="text-2xl font-bold">{data_response.data}</h2>
-
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-
-        <input
-          type="text"
-          id="text1"
-          onChange={handleHewanChange}
-          placeholder="Masukkan jenis hewan"
-          className="border mx-10 border-slate-200 shadow-md p-3 text-black mb-4"
-        />
-        <input
-          type="text"
-          id="text2"
-          onChange={handleGejalaChange}
-          placeholder="Masukkan gejala"
-          className="border border-slate-200 mx-10 shadow-md p-3 text-black mb-4"
-        />
-        <button
-          type="submit"
-          className="bg-red-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-800 transition duration-300"
-        >
-          Upload
-        </button>
-      </form>
-    </div>
+          <input
+            type='text'
+            id='text1'
+            onChange={handleHewanChange}
+            placeholder='Masukkan jenis hewan'
+            className='border mx-10 border-slate-200 shadow-md p-3 text-black mb-4'
+          />
+          <input
+            type='text'
+            id='text2'
+            onChange={handleGejalaChange}
+            placeholder='Masukkan gejala'
+            className='border border-slate-200 mx-10 shadow-md p-3 text-black mb-4'
+          />
+          <button
+            type='submit'
+            className='bg-red-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-800 transition duration-300'
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -6,20 +6,20 @@ function NavBar(props) {
   const [navbar, setNavbar] = useState(false);
   return (
     <div>
-      <nav className="w-full bg-[#9914ad]">
-        <div className="justify-between px-4 mx-auto lg:px-40 md:items-center md:flex md:px-10">
+      <nav className='w-full bg-[#9914ad]'>
+        <div className='justify-between px-4 mx-auto lg:px-40 md:items-center md:flex md:px-10'>
           <div>
-            <div className="flex items-center justify-between py-3 md:py-5 md:block">
+            <div className='flex items-center justify-between py-3 md:py-5 md:block'>
               {/* LOGO */}
-              <Link href="/">
-                <h2 className="text-2xl text-cyan-600 font-bold ">
-                  <Image   src="/logo.png" width={200} height={200} alt="logo" />
+              <Link href='/'>
+                <h2 className='text-2xl text-cyan-600 font-bold '>
+                  <Image src='/logo.png' width={200} height={200} alt='logo' />
                 </h2>
               </Link>
               {/* HAMBURGER BUTTON FOR MOBILE */}
-              <div className="md:hidden">
+              <div className='md:hidden'>
                 <button
-                  className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                  className='p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border'
                   onClick={() => setNavbar(!navbar)}
                 >
                   {/* {navbar ? (
@@ -43,7 +43,7 @@ function NavBar(props) {
                 navbar ? "p-12 md:p-0 block" : "hidden"
               }`}
             >
-              <ul className="h-screen md:h-auto gap-2 items-center justify-center md:flex ">
+              <ul className='h-screen md:h-auto gap-2 items-center justify-center md:flex '>
                 {/* <li
                   className={`${
                     props.menu === "dashboard"
@@ -60,7 +60,7 @@ function NavBar(props) {
                     props.menu === "upload" ? "bg-white" : "hover:bg-green-200"
                   } text-white font-bold py-2 px-4 rounded-full`}
                 >
-                  <Link href="../diseases" onClick={() => setNavbar(!navbar)}>
+                  <Link href='../diseases' onClick={() => setNavbar(!navbar)}>
                     Diseases
                   </Link>
                 </li>
@@ -69,8 +69,11 @@ function NavBar(props) {
                     props.menu === "history" ? "bg-white" : "hover:bg-green-200"
                   } text-white font-bold py-2 px-4 rounded-full`}
                 >
-                  <Link href="animalspredict" onClick={() => setNavbar(!navbar)}>
-                Predict
+                  <Link
+                    href='animals/predict'
+                    onClick={() => setNavbar(!navbar)}
+                  >
+                    Predict
                   </Link>
                 </li>
               </ul>

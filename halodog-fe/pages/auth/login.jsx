@@ -1,5 +1,5 @@
 // import axios from 'axios'
-import axios from 'axios'
+import { axiosInstance } from "@/utils/config";
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Navbar from "../../components/navbar.jsx";
@@ -12,7 +12,7 @@ export default function login() {
   const router = useRouter();
 
   const handleLogin = async() =>{
-    await axios.post('/login', {
+    await axiosInstance.post('/auth/login', {
         email: email,
         password: password
     }).then((res) => {
