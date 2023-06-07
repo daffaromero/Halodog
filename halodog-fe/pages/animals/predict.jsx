@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { axiosInstance } from "@/utils/config";
 import axios from "axios";
+import Navbar from "../../components/navbar.jsx";
+
 
 export default function upload() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -191,6 +193,7 @@ export default function upload() {
 
   return (
     <>
+      <Navbar />
       <div className="container px-4 md:px-10 lg:px-40 py-8 flex flex-col h-full justify-center">
         <p className="text-2xl font-bold mb-4 text-black text-center">
           Image Upload

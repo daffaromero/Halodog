@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import Navbar from "../../components/navbar.jsx";
 // import api from '../api/ap
 
 export default function register() {
